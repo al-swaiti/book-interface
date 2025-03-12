@@ -1,0 +1,23 @@
+{
+  "name": "ai-tools-book-website",
+  "version": "1.0.0",
+  "description": "A modern, interactive website that displays AI tools in a book-like browsing experience",
+  "main": "index.html",
+  "scripts": {
+    "predeploy": "echo 'Ready to deploy to GitHub Pages'",
+    "deploy": "gh-pages -d ."
+  },
+  "keywords": [
+    "ai",
+    "tools",
+    "book",
+    "interactive",
+    "reference"
+  ],
+  "author": "AI Book Creator",
+  "license": "MIT",
+  "homepage": "https://github.com/username/ai-tools-book-website",
+  "devDependencies": {
+    "gh-pages": "^6.0.0"
+  }
+}
