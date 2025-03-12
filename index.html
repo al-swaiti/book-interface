@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tools Reference Book</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Video Background -->
+    <div class="video-background">
+        <video autoplay muted loop id="background-video">
+            <source src="videos/background.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="overlay"></div>
+    </div>
+
+    <!-- Book Container -->
+    <div class="book-container">
+        <!-- Book Cover -->
+        <div class="book" id="book">
+            <div class="book-cover">
+                <h1>AI Tools Reference</h1>
+                <p class="subtitle">A Comprehensive Guide</p>
+                <div class="cover-decoration">
+                    <div class="decoration-circle"></div>
+                    <div class="decoration-line"></div>
+                </div>
+                <button class="open-book-btn">Open Book</button>
+            </div>
+
+            <!-- Book Pages -->
+            <div class="book-content">
+                <!-- Table of Contents -->
+                <div class="page" id="toc">
+                    <h2>Table of Contents</h2>
+                    <ul class="toc-list">
+                        <li><a href="#section-1" class="toc-link">Text Generation Tools</a></li>
+                        <li><a href="#section-2" class="toc-link">Image Generation Tools</a></li>
+                        <li><a href="#section-3" class="toc-link">Audio & Voice Tools</a></li>
+                        <li><a href="#section-4" class="toc-link">Video Creation Tools</a></li>
+                        <li><a href="#section-5" class="toc-link">Data Analysis Tools</a></li>
+                        <li><a href="#section-6" class="toc-link">Coding Assistants</a></li>
+                    </ul>
+                </div>
+
+                <!-- Section 1: Text Generation Tools -->
+                <div class="page" id="section-1">
+                    <h2>Text Generation Tools</h2>
+                    <div class="tool-card">
+                        <h3>ChatGPT</h3>
+                        <p>Advanced language model for conversational AI and text generation.</p>
+                        <div class="tool-features">
+                            <span>Natural conversations</span>
+                            <span>Content creation</span>
+                            <span>Question answering</span>
+                        </div>
+                    </div>
+                    <div class="tool-card">
+                        <h3>Claude</h3>
+                        <p>AI assistant focused on helpfulness, harmlessness, and honesty.</p>
+                        <div class="tool-features">
+                            <span>Long context windows</span>
+                            <span>Document analysis</span>
+                            <span>Thoughtful responses</span>
+                        </div>
+                    </div>
+                    <div class="tool-card">
+                        <h3>Gemini</h3>
+                        <p>Google's multimodal AI system for text, code, and creative content.</p>
+                        <div class="tool-features">
+                            <span>Multimodal capabilities</span>
+                            <span>Research assistance</span>
+                            <span>Creative writing</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: Image Generation Tools -->
+                <div class="page" id="section-2">
+                    <h2>Image Generation Tools</h2>
+                    <div class="tool-card">
+                        <h3>DALL-E</h3>
+                        <p>Creates images from textual descriptions with remarkable accuracy.</p>
+                        <div class="tool-features">
+                            <span>Text-to-image</span>
+                            <span>Artistic styles</span>
+                            <span>Concept visualization</span>
+                        </div>
+                    </div>
+                    <div class="tool-card">
+                        <h3>Midjourney</h3>
+                        <p>Generates detailed artistic images from text prompts.</p>
+                        <div class="tool-features">
+                            <span>High-quality art</span>
+                            <span>Style customization</span>
+                            <span>Iterative refinement</span>
+                        </div>
+                    </div>
+                    <div class="tool-card">
+                        <h3>Stable Diffusion</h3>
+                        <p>Open-source image generation model with extensive customization.</p>
+                        <div class="tool-features">
+                            <span>Local deployment</span>
+                            <span>Fine-tuning</span>
+                            <span>Community extensions</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3: Audio & Voice Tools -->
+                <div class="page" id="section-3">
+                    <h2>Audio & Voice Tools</h2>
+                    <div class="tool-card">
+                        <h3>ElevenLabs</h3>
+                        <p>AI voice generation with emotional and tonal control.</p>
+                        <div class="tool-features">
+                            <span>Voice cloning</span>
+                            <span>Multilingual support</span>
+                            <span>Emotional range</span>
+                        </div>
+                    </div>
+                    <div class="tool-card">
+                        <h3>Whisper</h3>
+                        <p>Speech recognition system for transcription and translation.</p>
+                        <div class="tool-features">
+                            <span>Multilingual transcription</span>
+                            <span>Robust to accents</span>
+                            <span>Open-source</span>
+                        </div>
+                    </div>
+                    <div class="tool-card">
+                        <h3>Murf AI</h3>
+                        <p>Studio-quality voice overs for videos and presentations.</p>
+                        <div class="tool-features">
+                            <span>Commercial use</span>
+                            <span>Voice customization</span>
+                            <span>Audio editing</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 4: Video Creation Tools -->
+                <div class="page" id="section-4">
+                    <h2>Video Creation Tools</h2>
+                    <div class="tool-card">
+                        <h3>Runway</h3>
+                        <p>AI-powered video editing and generation platform.</p>
+                        <div class="tool-features">
+                            <span>Text-to-video</span>
+                            <span>Motion tracking</span>
+                            <span>Visual effects</span>
+                        </div>
+                    </div>
+                    <div class="tool-card">
+                        <h3>Synthesia</h3>
+                        <p>Creates AI video presentations with virtual avatars.</p>
+                        <div class="tool-features">
+                            <span>Virtual presenters</span>
+                            <span>Multilingual videos</span>
+                            <span>Template library</span>
+                        </div>
+                    </div>
+                    <div class="tool-card">
+                        <h3>Descript</h3>
+                        <p>All-in-one audio and video editing with AI transcription.</p>
+                        <div class="tool-features">
+                            <span>Text-based editing</span>
+                            <span>Voice cloning</span>
+                            <span>Collaboration</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 5: Data Analysis Tools -->
+                <div class="page" id="section-5">
+                    <h2>Data Analysis Tools</h2>
+                    <div class="tool-card">
+                        <h3>Obviously AI</h3>
+                        <p>No-code machine learning for prediction and analysis.</p>
+                        <div class="tool-features">
+                            <span>Automated ML</span>
+                            <span>Predictive analytics</span>
+                            <span>Business insights</span>
+                        </div>
+                    </div>
+                    <div class="tool-card">
+                        <h3>Akkio</h3>
+                        <p>AI platform for quick data analysis and predictions.</p>
+                        <div class="tool-features">
+                            <span>Fast deployment</span>
+                            <span>Integration options</span>
+                            <span>Decision automation</span>
+                        </div>
+                    </div>
+                    <div class="tool-card">
+                        <h3>DataRobot</h3>
+                        <p>Enterprise AI platform for advanced analytics.</p>
+                        <div class="tool-features">
+                            <span>Automated modeling</span>
+                            <span>Model deployment</span>
+                            <span>Decision intelligence</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 6: Coding Assistants -->
+                <div class="page" id="section-6">
+                    <h2>Coding Assistants</h2>
+                    <div class="tool-card">
+                        <h3>GitHub Copilot</h3>
+                        <p>AI pair programmer that suggests code as you type.</p>
+                        <div class="tool-features">
+                            <span>Code completion</span>
+                            <span>IDE integration</span>
+                            <span>Multiple languages</span>
+                        </div>
+                    </div>
+                    <div class="tool-card">
+                        <h3>Tabnine</h3>
+                        <p>AI code completion tool with privacy focus.</p>
+                        <div class="tool-features">
+                            <span>Local models</span>
+                            <span>Team learning</span>
+                            <span>Security focus</span>
+                        </div>
+                    </div>
+                    <div class="tool-card">
+                        <h3>Replit Ghostwriter</h3>
+                        <p>AI coding assistant integrated with Replit IDE.</p>
+                        <div class="tool-features">
+                            <span>Code generation</span>
+                            <span>Debugging help</span>
+                            <span>Explanation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="book-navigation">
+            <button id="prev-page" class="nav-btn"><i class="fas fa-chevron-left"></i></button>
+            <button id="next-page" class="nav-btn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
