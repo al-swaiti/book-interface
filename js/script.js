@@ -16,6 +16,83 @@ let totalPages = pages.length;
 let isBookOpen = false;
 
 // Initialize when DOM is loaded
+// Background Music Control Implementation
+// Audio Control System - Add to script.js
+document.addEventListener('DOMContentLoaded', function() {
+    // System component references
+    const audioElement = document.getElementById('background-music');
+    const controlModule = document.getElementById('audio-control-wrapper');
+    const controlTrigger = document.getElementById('mute-btn');
+    
+    // System state parameters
+    let systemAudioEnabled = true;
+    let userInteractionRegistered = false;
+    
+    // Initial volume calibration
+    audioElement.volume = 0.3; // 30% baseline volume - optimal for ambient effects
+    
+    // Primary audio controller function
+    function toggleAudioState() {
+        systemAudioEnabled = !systemAudioEnabled;
+        audioElement.muted = !systemAudioEnabled;
+        
+        // Update interface state indicator
+        if (systemAudioEnabled) {
+            controlModule.classList.remove('muted');
+        } else {
+            controlModule.classList.add('muted');
+        }
+    }
+    
+    // Register control event handler
+    controlTrigger.addEventListener('click', toggleAudioState);
+    
+    // Address browser autoplay policy constraints
+    function initializeAudioSubsystem() {
+        if (!userInteractionRegistered) {
+            audioElement.play()
+                .then(() => {
+                    console.log("Audio subsystem initialized successfully");
+                    userInteractionRegistered = true;
+                })
+                .catch(error => {
+                    console.warn("Audio initialization deferred: " + error.message);
+                });
+        }
+    }
+    
+    // Register global interaction handler for audio initialization
+    document.addEventListener('click', function() {
+        initializeAudioSubsystem();
+    }, { once: true });
+    
+    // Attempt initial audio subsystem activation
+    initializeAudioSubsystem();
+    
+    // Optional: Fade volume on page visibility change to improve user experience
+    document.addEventListener('visibilitychange', function() {
+        if (!systemAudioEnabled) return; // Skip if audio disabled by user
+        
+        if (document.hidden) {
+            // Gradual volume reduction when tab inactive
+            let currentVolume = audioElement.volume;
+            const fadeInterval = setInterval(() => {
+                currentVolume = Math.max(0, currentVolume - 0.1);
+                audioElement.volume = currentVolume;
+                if (currentVolume <= 0) clearInterval(fadeInterval);
+            }, 100);
+        } else {
+            // Restore volume when tab becomes active
+            const fadeInterval = setInterval(() => {
+                let currentVolume = audioElement.volume;
+                currentVolume = Math.min(0.3, currentVolume + 0.1);
+                audioElement.volume = currentVolume;
+                if (currentVolume >= 0.3) clearInterval(fadeInterval);
+            }, 100);
+        }
+    });
+});
+
 document.addEventListener('DOMContentLoaded', function() {
     console.log("DOM fully loaded");
     

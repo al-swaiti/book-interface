@@ -484,3 +484,105 @@ body {
 *::-ms-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.4);
 }
+
+
+/* Audio Control Module - Add to style.css */
+.audio-control-module {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    opacity: 0.4;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.audio-control-module:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.audio-control-trigger {
+    background: rgba(4, 8, 19, 0.4);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 8px rgba(0, 255, 255, 0.2);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+
+.audio-control-trigger:hover {
+    background: rgba(9, 12, 27, 0.7);
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.3), 0 0 10px rgba(0, 255, 255, 0.3);
+    border: 1px solid rgba(0, 255, 255, 0.5);
+}
+
+/* Audio Wave Animation */
+.audio-indicator-wrapper {
+    height: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 15px;
+}
+
+.audio-indicator-wave {
+    background: #00ffff;
+    height: 5px;
+    width: 2px;
+    border-radius: 2px;
+    margin: 0 1px;
+    animation: sound 0ms -800ms linear infinite alternate;
+    box-shadow: 0 0 5px rgba(0, 255, 255, 0.7);
+}
+
+.audio-indicator-wave:nth-child(1) {
+    animation-duration: 474ms;
+}
+
+.audio-indicator-wave:nth-child(2) {
+    animation-duration: 433ms;
+}
+
+.audio-indicator-wave:nth-child(3) {
+    animation-duration: 407ms;
+}
+
+.audio-control-module.muted .audio-indicator-wave {
+    animation: none;
+    height: 2px;
+    background: #ff00ff;
+}
+
+@keyframes sound {
+    0% {
+        height: 2px;
+    }
+    100% {
+        height: 12px;
+    }
+}
+
+/* Media Query for Larger Screens */
+@media (min-width: 1024px) {
+    .audio-control-module {
+        bottom: 30px;
+        right: 30px;
+    }
+    
+    .audio-control-trigger {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .audio-indicator-wrapper {
+        width: 18px;
+    }
+}
