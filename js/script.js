@@ -141,3 +141,107 @@ document.addEventListener('mouseleave', function() {
         book.style.transform = 'rotateY(0deg) rotateX(0deg)';
     }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("DOM fully loaded");
+
+    const openBookBtn = document.querySelector('.open-book-btn');
+    const bookCover = document.querySelector('.book-cover');
+    const bookContent = document.querySelector('.book-content');
+    const tocPage = document.getElementById('toc');
+    const prevPageBtn = document.getElementById('prev-page');
+    const nextPageBtn = document.getElementById('next-page');
+    const backToTocBtns = document.querySelectorAll('.back-to-toc-btn');
+    let currentPageIndex = 0;
+
+    if (!openBookBtn) {
+        console.warn("Open Book button not found.");
+        return;
+    }
+    if (!bookCover) {
+        console.warn("Book cover not found.");
+        return;
+    }
+    if (!bookContent) {
+        console.warn("Book content not found.");
+        return;
+    }
+    if (!tocPage) {
+        console.warn("TOC page not found.");
+        return;
+    }
+
+    const pages = Array.from(document.querySelectorAll('.book-content .page'));
+
+    openBookBtn.addEventListener('click', () => {
+        console.log("Open Book button clicked");
+
+        // Hide the book cover
+        bookCover.style.display = 'none';
+
+        // Show the book content container
+        bookContent.style.display = 'block';
+
+        // Hide all pages first
+        pages.forEach(page => {
+            page.style.display = 'none';
+        });
+
+        // Then display the TOC page
+        tocPage.style.display = 'block';
+        currentPageIndex = pages.indexOf(tocPage);
+        console.log("TOC page should now be visible");
+    })
+
+    // Handle TOC link clicks to navigate between sections
+    document.body.addEventListener('click', (e) => {
+        if (e.target.classList.contains('toc-link')) {
+            e.preventDefault();
+            console.log("TOC link clicked");
+            const targetId = e.target.getAttribute('href').substring(1);
+            const targetPage = document.getElementById(targetId);
+            if (targetPage) {
+                // Hide all pages then show the target page
+                pages.forEach(page => {
+                    page.style.display = 'none';
+                });
+                targetPage.style.display = 'block';
+                currentPageIndex = pages.indexOf(targetPage);
+                console.log(`Displaying section: ${targetId}`);
+            } else {
+                console.warn(`Section with id "${targetId}" not found.`);
+            }
+        }
+    });
+
+    // Handle previous and next buttons
+    prevPageBtn.addEventListener('click', () => {
+        if (currentPageIndex > 0) {
+            pages[currentPageIndex].style.display = 'none';
+            currentPageIndex--;
+            pages[currentPageIndex].style.display = 'block';
+            console.log(`Displaying previous section: ${pages[currentPageIndex].id}`);
+        }
+    });
+
+    nextPageBtn.addEventListener('click', () => {
+        if (currentPageIndex < pages.length - 1) {
+            pages[currentPageIndex].style.display = 'none';
+            currentPageIndex++;
+            pages[currentPageIndex].style.display = 'block';
+            console.log(`Displaying next section: ${pages[currentPageIndex].id}`);
+        }
+    });
+
+    // Handle "Back to Index" button clicks
+    backToTocBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            pages.forEach(page => {
+                page.style.display = 'none';
+            });
+            tocPage.style.display = 'block';
+            currentPageIndex = pages.indexOf(tocPage);
+            console.log("Back to TOC");
+        });
+    });
+});
