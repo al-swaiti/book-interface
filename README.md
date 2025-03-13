@@ -65,12 +65,6 @@ Catalogs development acceleration technologies:
 
 ## Copyright Notice
 
-### Intellectual Property Protection
-All content contained within this reference implementation is subject to copyright protection. The copyright encompasses:
-- Textual descriptions and categorizations
-- Structural organization and information architecture
-- Visual design elements and interface components
-- Functionality implementation methodologies
 
 ### Usage Restrictions
 The implementation is provided for reference purposes with the following stipulations:
