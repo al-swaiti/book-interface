@@ -5,19 +5,42 @@ const pages = document.querySelectorAll('.page');
 const prevBtn = document.getElementById('prev-page');
 const nextBtn = document.getElementById('next-page');
 const tocLinks = document.querySelectorAll('.toc-link');
+const backToTocBtns = document.querySelectorAll('.back-to-toc-btn');
+const bookCover = document.querySelector('.book-cover');
+const bookContent = document.querySelector('.book-content');
+const tocPage = document.getElementById('toc');
 
 // Variables
 let currentPage = 0;
 let totalPages = pages.length;
 let isBookOpen = false;
 
-// Initialize
-function init() {
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    console.log("DOM fully loaded");
+    
     // Set first page (TOC) as active
     pages[0].classList.add('active');
     
-    // Add event listeners
-    openBookBtn.addEventListener('click', toggleBook);
+    // Open book button event
+    openBookBtn.addEventListener('click', () => {
+        console.log("Open Book button clicked");
+        isBookOpen = true;
+        book.classList.add('open');
+        
+        // Show the book content
+        bookCover.style.display = 'none';
+        bookContent.style.display = 'block';
+        
+        // Show first page
+        currentPage = 0;
+        showActivePage();
+        
+        // Update navigation
+        updateNavigation();
+    });
+    
+    // Add event listeners to navigation
     prevBtn.addEventListener('click', goToPrevPage);
     nextBtn.addEventListener('click', goToNextPage);
     
@@ -26,31 +49,51 @@ function init() {
         link.addEventListener('click', function(e) {
             e.preventDefault();
             const targetId = this.getAttribute('href').substring(1);
-            goToPage(findPageIndex(targetId));
+            goToPageById(targetId);
         });
     });
     
-    // Hide navigation initially (until book is opened)
+    // Handle "Back to Index" button clicks
+    backToTocBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            goToPageById('toc');
+            console.log("Back to TOC");
+        });
+    });
+    
+    // Setup video background fallback
+    setupVideoBackground();
+    
+    // Hide navigation initially
     updateNavigation();
-}
+    
+    // Add visual effects
+    setupVisualEffects();
+});
 
-// Find page index by ID
-function findPageIndex(id) {
+// Go to page by ID
+function goToPageById(id) {
     for (let i = 0; i < pages.length; i++) {
         if (pages[i].id === id) {
-            return i;
+            goToPage(i);
+            return;
         }
     }
-    return 0;
+    // If not found, go to TOC
+    goToPage(0);
 }
 
-// Toggle book open/close
-function toggleBook() {
-    isBookOpen = !isBookOpen;
-    book.classList.toggle('open', isBookOpen);
-    
-    // Show/hide navigation based on book state
-    updateNavigation();
+// Show only the active page
+function showActivePage() {
+    pages.forEach((page, index) => {
+        if (index === currentPage) {
+            page.classList.add('active');
+            page.style.display = 'block';
+        } else {
+            page.classList.remove('active');
+            page.style.display = 'none';
+        }
+    });
 }
 
 // Go to specific page
@@ -66,12 +109,14 @@ function goToPage(pageIndex) {
     setTimeout(() => {
         // Remove active and animation classes from current page
         pages[currentPage].classList.remove('active', 'page-turn');
+        pages[currentPage].style.display = 'none';
         
         // Update current page
         currentPage = pageIndex;
         
         // Add active and animation classes to new page
         pages[currentPage].classList.add('active', 'page-turn-in');
+        pages[currentPage].style.display = 'block';
         
         // Remove animation class after it completes
         setTimeout(() => {
@@ -120,128 +165,21 @@ function setupVideoBackground() {
     }
 }
 
-// Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    init();
-    setupVideoBackground();
-});
-
-// Add some visual effects for modern feel
-document.addEventListener('mousemove', function(e) {
-    if (!isBookOpen) {
-        const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-        const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-        book.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-    }
-});
-
-// Reset transform when mouse leaves
-document.addEventListener('mouseleave', function() {
-    if (!isBookOpen) {
-        book.style.transform = 'rotateY(0deg) rotateX(0deg)';
-    }
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    console.log("DOM fully loaded");
-
-    const openBookBtn = document.querySelector('.open-book-btn');
-    const bookCover = document.querySelector('.book-cover');
-    const bookContent = document.querySelector('.book-content');
-    const tocPage = document.getElementById('toc');
-    const prevPageBtn = document.getElementById('prev-page');
-    const nextPageBtn = document.getElementById('next-page');
-    const backToTocBtns = document.querySelectorAll('.back-to-toc-btn');
-    let currentPageIndex = 0;
-
-    if (!openBookBtn) {
-        console.warn("Open Book button not found.");
-        return;
-    }
-    if (!bookCover) {
-        console.warn("Book cover not found.");
-        return;
-    }
-    if (!bookContent) {
-        console.warn("Book content not found.");
-        return;
-    }
-    if (!tocPage) {
-        console.warn("TOC page not found.");
-        return;
-    }
-
-    const pages = Array.from(document.querySelectorAll('.book-content .page'));
-
-    openBookBtn.addEventListener('click', () => {
-        console.log("Open Book button clicked");
-
-        // Hide the book cover
-        bookCover.style.display = 'none';
-
-        // Show the book content container
-        bookContent.style.display = 'block';
-
-        // Hide all pages first
-        pages.forEach(page => {
-            page.style.display = 'none';
-        });
-
-        // Then display the TOC page
-        tocPage.style.display = 'block';
-        currentPageIndex = pages.indexOf(tocPage);
-        console.log("TOC page should now be visible");
-    })
-
-    // Handle TOC link clicks to navigate between sections
-    document.body.addEventListener('click', (e) => {
-        if (e.target.classList.contains('toc-link')) {
-            e.preventDefault();
-            console.log("TOC link clicked");
-            const targetId = e.target.getAttribute('href').substring(1);
-            const targetPage = document.getElementById(targetId);
-            if (targetPage) {
-                // Hide all pages then show the target page
-                pages.forEach(page => {
-                    page.style.display = 'none';
-                });
-                targetPage.style.display = 'block';
-                currentPageIndex = pages.indexOf(targetPage);
-                console.log(`Displaying section: ${targetId}`);
-            } else {
-                console.warn(`Section with id "${targetId}" not found.`);
-            }
+// Setup visual effects
+function setupVisualEffects() {
+    // 3D book rotation effect
+    document.addEventListener('mousemove', function(e) {
+        if (!isBookOpen) {
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+            book.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
         }
     });
-
-    // Handle previous and next buttons
-    prevPageBtn.addEventListener('click', () => {
-        if (currentPageIndex > 0) {
-            pages[currentPageIndex].style.display = 'none';
-            currentPageIndex--;
-            pages[currentPageIndex].style.display = 'block';
-            console.log(`Displaying previous section: ${pages[currentPageIndex].id}`);
+    
+    // Reset transform when mouse leaves
+    document.addEventListener('mouseleave', function() {
+        if (!isBookOpen) {
+            book.style.transform = 'rotateY(0deg) rotateX(0deg)';
         }
     });
-
-    nextPageBtn.addEventListener('click', () => {
-        if (currentPageIndex < pages.length - 1) {
-            pages[currentPageIndex].style.display = 'none';
-            currentPageIndex++;
-            pages[currentPageIndex].style.display = 'block';
-            console.log(`Displaying next section: ${pages[currentPageIndex].id}`);
-        }
-    });
-
-    // Handle "Back to Index" button clicks
-    backToTocBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            pages.forEach(page => {
-                page.style.display = 'none';
-            });
-            tocPage.style.display = 'block';
-            currentPageIndex = pages.indexOf(tocPage);
-            console.log("Back to TOC");
-        });
-    });
-});
+}
